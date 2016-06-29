@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Classes\Combination.cs" />
      <Compile Include="Assets\Scripts\Classes\Game.cs" />
+     <Compile Include="Assets\Scripts\Classes\Result.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GuiManager.cs" />
      <Compile Include="Assets\Scripts\ScriptObjects\PawnColor.cs" />

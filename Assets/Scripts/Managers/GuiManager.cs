@@ -6,6 +6,8 @@ public class GuiManager : MonoBehaviour {
 
 	public GameManager gm;
 	public Image[] selectionButtons = new Image[4];
+	public Text wellPlacedLabel;
+	public Text badPlacedLabel;
 	
 	private int currentIndex = 0;
 	private PawnColor[] currentColors = new PawnColor[4];
@@ -32,5 +34,10 @@ public class GuiManager : MonoBehaviour {
 	
 	public void OnSubmitButtonPressed () {
 		gm.ResolveCombination(currentColors);
+	}
+	
+	public void DisplayResult (Result result) {
+		wellPlacedLabel.text = result.WellPlaced.ToString();
+		badPlacedLabel.text = result.BadPlaced.ToString();
 	}
 }

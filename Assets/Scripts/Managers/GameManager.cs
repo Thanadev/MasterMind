@@ -3,14 +3,13 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public GuiManager guiM;
+	
+	private Combination secret;
+
 	// Use this for initialization
 	void Start () {
 		GenerateRandomCombination();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 	
 	void GenerateRandomCombination () {
@@ -23,11 +22,39 @@ public class GameManager : MonoBehaviour {
 				Debug.Log(selectedColors[i].name);
 			}
 		}
+		
+		secret = new Combination(selectedColors);
 	}
 	
 	public void ResolveCombination (PawnColor[] colors) {
-		for (int i = 0; i < colors.Length; i++) {
-			Debug.Log(colors[i].name);
+		Result result = new Result();
+		PawnColor[] colorsCopy = colors;
+		PawnColor[] secretCopy = secret.Colors;
+		
+		// Well placed
+		for (int i = 0; i < colorsCopy.Length; i++) {
+			if (colorsCopy[i] != null && secret.matchAtIndex(i, colorsCopy[i])) {
+				result.WellPlaced++;
+				secretCopy[i] = null;
+				colorsCopy[i] = null;
+			}
+		}
+		
+		// Bad placed
+		for (int i = 0; i < colorsCopy.Length; i++) {
+			for (int j = 0; j < secretCopy.Length; j++) {
+				if (colorsCopy[i] != null && secretCopy[j] != null && secret.matchAtIndex(j, colorsCopy[i])) {
+					result.BadPlaced++;
+					secretCopy[j] = null;
+					colorsCopy[i] = null;
+				}
+			}
+		}
+		
+		guiM.DisplayResult(result);
+		
+		if (result.WellPlaced == 4) {
+			Debug.Log("VICTOOOOOOOOOOOOOORYYYYYYYYYYYYYY");
 		}
 	}
 }
