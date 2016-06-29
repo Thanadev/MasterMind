@@ -28,8 +28,15 @@ public class GameManager : MonoBehaviour {
 	
 	public void ResolveCombination (PawnColor[] colors) {
 		Result result = new Result();
-		PawnColor[] colorsCopy = colors;
-		PawnColor[] secretCopy = secret.Colors;
+		PawnColor[] secretCopy = new PawnColor[4];
+		PawnColor[] colorsCopy = new PawnColor[4];
+		
+		// Init copies
+		for (int i = 0; i < secret.Colors.Length; i++) {
+			secretCopy[i] = secret.Colors[i];
+			colorsCopy[i] = colors[i];
+			
+		}
 		
 		// Well placed
 		for (int i = 0; i < colorsCopy.Length; i++) {
@@ -54,7 +61,11 @@ public class GameManager : MonoBehaviour {
 		guiM.DisplayResult(result);
 		
 		if (result.WellPlaced == 4) {
-			Debug.Log("VICTOOOOOOOOOOOOOORYYYYYYYYYYYYYY");
+			OnWin();
 		}
+	}
+	
+	private void OnWin () {
+		Debug.Log("VICTOOOOOOOOOOOOOORYYYYYYYYYYYYYY");
 	}
 }

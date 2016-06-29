@@ -6,6 +6,7 @@ public class GuiManager : MonoBehaviour {
 
 	public GameManager gm;
 	public Image[] selectionButtons = new Image[4];
+	public Color emptyColor;
 	public Text wellPlacedLabel;
 	public Text badPlacedLabel;
 	
@@ -33,6 +34,9 @@ public class GuiManager : MonoBehaviour {
 	}
 	
 	public void OnSubmitButtonPressed () {
+		foreach (Image button in selectionButtons) {
+			button.color = emptyColor;
+		}
 		gm.ResolveCombination(currentColors);
 	}
 	
